@@ -17,7 +17,7 @@
                 //echo Config::get('mysql/username');
                 //echo Config::get('mysql/password');                
                 //echo 'mysql:host=' .  Config::get('mysql/host') . ';dbname=' . Config::get('mysql/db');
-                echo 'Connected';
+                //echo 'Connected';
             } catch (PDOException $e) {
                 die($e->getMessage());
                 
@@ -29,6 +29,24 @@
             self::$_instance = new DB();
           }
           return self::$_instance;
+        }
+        
+        public function query($sql, $params = array()) {
+            $this->_error = false; // resets the error back to false
+            if($this->_query = $this->_pdo->prepare($sql)){
+                $x=1;
+                //echo 'Success';
+                if(count($params)) {
+                    foreach($params as $param) {
+                        $this->_query->bindValue($x, $param);
+                        $x++; //increment X for the position
+                    }
+                }
+                
+                if($this->_query->execute()){
+                    echo 'Success';
+                }
+            }
         }
     }
 ?>

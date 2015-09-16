@@ -11,5 +11,7 @@
   }
   */
     //$db = new DB(); // Won't work at this point
-  DB::getInstance();
+  //DB::getInstance(); // works
+  DB::getInstance()->query("SELECT username FROM users WHERE username = ?", array('alex')); // This works
+  
 ?>
