@@ -9,9 +9,13 @@
         foreach($path as $bit) {
           //echo $bit, ' ';
           if(isset($config[$bit])){
-            echo 'Set';
+            //echo 'Set';
+              $config = $config[$bit];
           }
         }
+        
+        return $config;
+        
       }
     }
   }

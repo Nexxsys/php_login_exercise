@@ -5,12 +5,12 @@
     'mysql' => array(
       'host' => '127.0.0.1',
       'username' => 'root',
-      'passowrd' => 'Madison1',
+      'password' => 'Madison1',
       'db' => 'lr'
     ),
     'remember' => array(
       'cookie_name' => 'hash',
-      'cookie_expiry' => 604800
+      'cookie_expiry' => 604800 //time in seconds
     ),
     'sessions' => array(
       'session_name' => 'user'
