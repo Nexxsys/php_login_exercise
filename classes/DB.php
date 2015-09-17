@@ -38,15 +38,52 @@
                 //echo 'Success';
                 if(count($params)) {
                     foreach($params as $param) {
-                        $this->_query->bindValue($x, $param);
+                        $this->_query->bindValue($x, $param); //each param in query
                         $x++; //increment X for the position
                     }
                 }
                 
                 if($this->_query->execute()){
-                    echo 'Success';
+                    //echo 'Success';
+                    $this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
+                    $this->_count = $this->_query->rowCount();
+                }
+                else {
+                    $this->_error = true;
                 }
             }
+            return $this;
+        }
+        
+        // Not Required but makes life easier
+        // Update, Alter
+        private function action($action, $table, $where = array()){
+            if(count($where) === 3){ // ensures there are 3 elements from the where passed in, "field", "operator like =' and a "value"
+                $operators = array('=', '<', '>', '>=', '<=');
+                $field      =$where[0];
+                $operator   =$where[1];
+                $value      =$where[2];
+                
+                if(in_array($operator, $operators)){
+                    //$sql ="SELECT * FROM users WHERE username = 'Alex'";
+                    $sql ="{$action} * FROM {$table} WHERE {$field} {$operator}  ?";  //? instead of {$value} because we will bind that on later
+                    if(!$this->query($sql, array($value))->error()) {
+                        return $this;
+                    }
+                }
+                
+            }
+            return false;
+        }
+        // select
+        public function get($table, $where){
+            
+        }
+        public function delete($table, $where){
+            
+        }
+        public function error() {
+            return $this->_error;
         }
     }
 ?>

@@ -2,7 +2,7 @@
   require_once 'core/init.php';
  //echo Config::get('mysql/username');
  
-  //phpinfo();
+ //phpinfo();
  /* $users = DB::getInstance()->query('SELECT username FROM users');
   if($users->count()) {
       foreach($users as $user) {
@@ -12,6 +12,13 @@
   */
     //$db = new DB(); // Won't work at this point
   //DB::getInstance(); // works
-  DB::getInstance()->query("SELECT username FROM users WHERE username = ?", array('alex')); // This works
+  //DB::getInstance()->query("SELECT username FROM users WHERE username = ?", array('alex')); // This works
+  $user = DB::getInstance()->query("SELECT username FROM users WHERE username = ?", array('alex'));
   
+  if($user->error()) {
+      echo 'No User';      
+  }
+  else {
+      echo 'Ok!';
+  }
 ?>
