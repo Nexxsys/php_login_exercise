@@ -13,8 +13,9 @@
     //$db = new DB(); // Won't work at this point
   //DB::getInstance(); // works
   //DB::getInstance()->query("SELECT username FROM users WHERE username = ?", array('alex')); // This works
-  $user = DB::getInstance()->query("SELECT username FROM users WHERE username = ?", array('alex'));
-  
+  //$user = DB::getInstance()->query("SELECT username FROM users WHERE username = ?", array('alex'));
+  $user = DB::getInstance()->get('users', array('username', '=', 'alex'));
+
   if($user->error()) {
       echo 'No User';      
   }

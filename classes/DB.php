@@ -57,7 +57,7 @@
         
         // Not Required but makes life easier
         // Update, Alter
-        private function action($action, $table, $where = array()){
+        public function action($action, $table, $where = array()){
             if(count($where) === 3){ // ensures there are 3 elements from the where passed in, "field", "operator like =' and a "value"
                 $operators = array('=', '<', '>', '>=', '<=');
                 $field      =$where[0];
@@ -66,7 +66,7 @@
                 
                 if(in_array($operator, $operators)){
                     //$sql ="SELECT * FROM users WHERE username = 'Alex'";
-                    $sql ="{$action} * FROM {$table} WHERE {$field} {$operator}  ?";  //? instead of {$value} because we will bind that on later
+                    $sql ="{$action} FROM {$table} WHERE {$field} {$operator} ?";  //? instead of {$value} because we will bind that on later
                     if(!$this->query($sql, array($value))->error()) {
                         return $this;
                     }
@@ -77,10 +77,10 @@
         }
         // select
         public function get($table, $where){
-            
+            return $this->action('SELECT *', $table, $where);
         }
         public function delete($table, $where){
-            
+            return $this->action('DELETE', $table, $where);
         }
         public function error() {
             return $this->_error;

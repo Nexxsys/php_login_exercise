@@ -17,7 +17,8 @@
     )
   );
   // Autoload (Require_once) function spl = standard php library
-spl_autoload_register(function($class) {
+
+spl_autoload_register(function($class) { //this is callend when a class is instantiated and the class instantiated is what is passed into the function.  i.e. DB
   require_once 'classes/' . $class . '.php';
 });
 
