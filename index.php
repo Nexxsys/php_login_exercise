@@ -14,12 +14,17 @@
   //DB::getInstance(); // works
   //DB::getInstance()->query("SELECT username FROM users WHERE username = ?", array('alex')); // This works
   //$user = DB::getInstance()->query("SELECT username FROM users WHERE username = ?", array('alex'));
-  $user = DB::getInstance()->get('users', array('username', '=', 'alex'));
-
-  if($user->error()) {
+  //$user = DB::getInstance()->get('users', array('username', '=', 'troy'));
+  $user = DB::getInstance()->query("SELECT * FROM users");
+  
+  //if($user->error()) {
+  if (!$user->count()){
       echo 'No User';      
   }
   else {
-      echo 'Ok!';
+      //echo 'Ok!';
+      foreach($user->results() as $user){
+          echo $user->username, '<br>';
+      }
   }
 ?>
